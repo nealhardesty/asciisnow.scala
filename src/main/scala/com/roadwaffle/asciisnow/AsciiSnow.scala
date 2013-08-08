@@ -27,18 +27,18 @@ object AsciiSnow {
 			terminal.applyForegroundColor(Terminal.Color.WHITE)
 			terminal.applyBackgroundColor(Terminal.Color.BLACK)
 			terminal.clearScreen
-			for(y <- 0 to rows) for(x <- 0 to cols) {terminal.moveCursor(x, y); terminal.putCharacter(' ') }
+			for(y <- 0 to rows) for(x <- 0 to cols) { terminal.moveCursor(x, y); terminal.putCharacter(' ') }
 
 			breakable {
-			while(true) {
-				flakes.foreach(_.update)
-				terminal.flush
-				terminal.readInput match {
-					case null => 
-					case _ => break
+				while(true) {
+					flakes.foreach(_.update)
+					terminal.flush
+					terminal.readInput match {
+						case null => 
+						case _ => break
+					}
+			  		Thread.sleep(REFRESH)
 				}
-				Thread.sleep(REFRESH)
-			}
 			}
 		} finally {
 			terminal.exitPrivateMode
