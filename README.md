@@ -1,4 +1,4 @@
 asciisnow.scala
 ===============
 
-Reimplementatio of asciisnow in Scala
+Reimplementation of asciisnow in Scala
