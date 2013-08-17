@@ -13,6 +13,13 @@ object AsciiSnow {
 	val terminal = new UnixTerminal(System.in, System.out, Charset.forName("UTF8"))
 	//val terminal = TerminalFacade.createTerminal(System.in, System.out, Charset.forName("UTF8"))
 
+	// Extra VT100 escape codes...
+	val ESCAPE: Char = 0x1b;
+	val HIDE_CURSOR = ESCAPE+"[?25l"
+	def hideCursor = { print(HIDE_CURSOR) }
+	val SHOW_CURSOR = ESCAPE+"[?25h"
+	def showCursor = { print(SHOW_CURSOR) }
+
 	val REFRESH = 30;
 
 	val cols = terminal.getTerminalSize.getColumns
@@ -23,6 +30,7 @@ object AsciiSnow {
 
 	def main(args: Array[String]) {
 		try {
+			println(HIDE_CURSOR);
 			terminal.enterPrivateMode
 			terminal.applyForegroundColor(Terminal.Color.WHITE)
 			terminal.applyBackgroundColor(Terminal.Color.BLACK)
@@ -42,6 +50,7 @@ object AsciiSnow {
 			}
 		} finally {
 			terminal.exitPrivateMode
+			println(SHOW_CURSOR);
 		}
 	}
 
